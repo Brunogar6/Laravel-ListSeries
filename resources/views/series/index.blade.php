@@ -1,19 +1,15 @@
-<x-layout title="Séries">
-    <a href="/series/create" class="btn btn-dark mb-2">Adicionar</a>
+<x-layout title="Series" :mensagem-sucesso="$mensagemSucesso" >
+    <a href="/series/create" class="btn btn-dark mb-2">Add</a>
 
-    @isset($menssagemSucesso)
-    <div class="alert alert-success">
-        {{$menssagemSucesso}}
-    </div>
-    @endisset
+
 
     <ul class="list-group">
         @foreach ($series as $serie)
         <li class="list-group-item d-flex justify-content-between align-items-center">
-            <a href="{{ route('seasons.index', $serie->id) }}">
+            <a class="btn btn-outline-dark" href="{{ route('seasons.index', $serie->id) }}">
                 {{ $serie->nome }}
             </a>
-            
+
             <span class="d-flex">
                 <a href=" {{ route('series.edit', $serie->id) }} " class="btn btn-primary btn-sm">
                     E
