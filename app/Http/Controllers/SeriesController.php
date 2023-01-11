@@ -5,9 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Serie;
 use App\Repositories\SeriesRepository;
 use Illuminate\Http\Request;
-use Illuminate\Auth\AuthenticationException;
 use App\Http\Requests\SeriesFormRequest;
-use Illuminate\Support\Facades\Auth;
 
 class SeriesController extends Controller
 {
