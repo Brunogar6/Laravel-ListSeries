@@ -1,7 +1,9 @@
 <?php
 
-use App\Http\Controllers\{EpisodesController, SeriesController, SeasonsController};
+use App\Http\Middleware\Autenticador;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\LoginController;
+use App\Http\Controllers\{EpisodesController, SeriesController, SeasonsController};
 
 /*
 |--------------------------------------------------------------------------
@@ -16,7 +18,7 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
     return redirect('/series');
-});
+})->middleware(Autenticador::class);
 
 Route::resource('/series', SeriesController::class);
 
@@ -24,3 +26,6 @@ Route::get('/series/{series}/seasons', [SeasonsController::class, 'index'])->nam
 
 Route::get('/seasons/{season}/episodes', [EpisodesController::class, 'index']) ->name('episodes.index');
 Route::post('/seasons/{season}/episodes', [EpisodesController::class, 'update']) -> name('episodes.update');
+
+Route::get('/login', [LoginController::class, 'index'])->name('login');
+Route::post('/login', [LoginController::class, 'store'])->name('sign');
