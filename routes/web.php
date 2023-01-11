@@ -3,7 +3,7 @@
 use App\Http\Middleware\Autenticador;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\LoginController;
-use App\Http\Controllers\{EpisodesController, SeriesController, SeasonsController};
+use App\Http\Controllers\{EpisodesController, SeriesController, SeasonsController, UsersController};
 
 /*
 |--------------------------------------------------------------------------
@@ -29,3 +29,9 @@ Route::post('/seasons/{season}/episodes', [EpisodesController::class, 'update'])
 
 Route::get('/login', [LoginController::class, 'index'])->name('login');
 Route::post('/login', [LoginController::class, 'store'])->name('sign');
+Route::get('/logout', [LoginController::class, 'destroy'])->name('logout');
+
+
+Route::get('/register',[UsersController::class, 'create']) ->name('user.create');
+Route::post('/register', [UsersController::class, 'store'])->name('user.store');
+
