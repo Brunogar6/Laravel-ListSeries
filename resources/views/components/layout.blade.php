@@ -13,12 +13,13 @@
     <div class="container-fluid">
         <a class="navbar-brand" href="{{ route('series.index') }}">Home</a>
 
-        <div>
+        @guest
             <a class="navbar-brand" href="{{ route('login') }}">Login</a>
-
+        @endguest
+        
+        @auth
             <a class="navbar-brand" href="{{ route('logout') }}">Logout</a>
-
-        </div>
+        @endauth
 
     </div>
 </nav>

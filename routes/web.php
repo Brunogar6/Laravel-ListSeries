@@ -16,21 +16,26 @@ use App\Http\Controllers\{EpisodesController, SeriesController, SeasonsControlle
 |
 */
 
-Route::get('/', function () {
-    return redirect('/series');
-})->middleware(Autenticador::class);
+Route::resource('/series', SeriesController::class)
+    ->except(['show']);
 
-Route::resource('/series', SeriesController::class);
+Route::middleware('autenticador')->group(function () {
+    Route::get('/', function () {
+        return redirect('/series');
+    })->middleware(Autenticador::class);
+    
+    Route::get('/series/{series}/seasons', [SeasonsController::class, 'index'])
+        ->name('seasons.index')
+        ->middleware('autenticador');
+    
+    Route::get('/seasons/{season}/episodes', [EpisodesController::class, 'index']) ->name('episodes.index');
+    Route::post('/seasons/{season}/episodes', [EpisodesController::class, 'update']) -> name('episodes.update');
 
-Route::get('/series/{series}/seasons', [SeasonsController::class, 'index'])->name('seasons.index');
-
-Route::get('/seasons/{season}/episodes', [EpisodesController::class, 'index']) ->name('episodes.index');
-Route::post('/seasons/{season}/episodes', [EpisodesController::class, 'update']) -> name('episodes.update');
+});
 
 Route::get('/login', [LoginController::class, 'index'])->name('login');
 Route::post('/login', [LoginController::class, 'store'])->name('sign');
 Route::get('/logout', [LoginController::class, 'destroy'])->name('logout');
-
 
 Route::get('/register',[UsersController::class, 'create']) ->name('user.create');
 Route::post('/register', [UsersController::class, 'store'])->name('user.store');
