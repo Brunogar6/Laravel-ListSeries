@@ -11,10 +11,10 @@
             <input type="password" name="password" id="password" class="form-control">
         </div>
 
-        <button class="btn btn-primary mt-3">Sign in</button>
+        <button class="btn btn-primary mt-3">Login</button>
 
         <a href="{{ route('user.create') }}" class="btn btn-secondary mt-3">
-            Sign up
+            Register
         </a>
     </form>
 </x-layout>

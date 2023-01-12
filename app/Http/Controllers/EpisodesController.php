@@ -18,12 +18,7 @@ class EpisodesController
 
     public function update(Request $request, Season $season)
     {
-        $watchedEpisodes = $request->episodes;
-        $season->episodes->each(function (Episode $episode) use($watchedEpisodes) {
-           $episode->watched = in_array($episode->id, $watchedEpisodes);
-        });
-
-        $season->push();
+        Episode::whereIn('id', $request->episodes) -> update(['watched' => 1] );
 
         return to_route('episodes.index', $season->id)
             ->with('mensagem.sucesso', 'Episódios marcados como assistidos');
