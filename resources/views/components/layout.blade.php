@@ -18,7 +18,10 @@
         @endguest
         
         @auth
-            <a class="navbar-brand" href="{{ route('logout') }}">Logout</a>
+            <form class="navbar-brand" action="{{ route('logout') }}" method="POST">
+                @csrf
+                <button class="border-0 bg-transparent" type="submit">Logout</button>
+            </form>
         @endauth
 
     </div>

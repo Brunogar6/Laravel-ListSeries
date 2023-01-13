@@ -36,6 +36,7 @@ Route::middleware('guest')->group(function () {
 
     Route::post('reset-password', [NewPasswordController::class, 'store'])
                 ->name('password.store');
+
 });
 
 Route::middleware('auth')->group(function () {
@@ -59,13 +60,13 @@ Route::middleware('auth')->group(function () {
 
     Route::post('logout', [AuthenticatedSessionController::class, 'destroy'])
                 ->name('logout');
-
-    Route::resource('/series', SeriesController::class)
-        ->except(['show']);
-
+    
     Route::get('/', function () {
         return redirect('/series');
     });
+    
+    Route::resource('/series', SeriesController::class)
+    ->except(['show']);
 
     Route::get('/series/{series}/seasons', [SeasonsController::class, 'index'])
         ->name('seasons.index');
