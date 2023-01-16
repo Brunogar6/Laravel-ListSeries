@@ -27,7 +27,7 @@
     </div>
 </nav>
 <div class="container">
-    <h1>{{ $title }}</h1>
+    <h1 class="text-center mb-3">{{ $title }}</h1>
 
     @isset($mensagemSucesso)
         <div class="alert alert-success">
