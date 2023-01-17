@@ -14,9 +14,16 @@ class SeriesController extends Controller
     {
 
     }
-    public function index()
+    public function index(Request $request)
     {
-        return Serie::all();
+        $query = Serie::query();
+
+        if($request->has('nome')) {
+
+            $query->where('nome', $request->nome);
+        }
+
+        return $query->paginate(5);
     }
 
     public function store(SeriesFormRequest $request)
@@ -25,26 +32,29 @@ class SeriesController extends Controller
             ->json($this->seriesRepository->add($request), 201);
     }
 
-    public function show(int $serie)
+    public function show(int $series)
     {
-        $serie = Serie::whereId($serie)
-            ->with('temporadas.episodes')
-            ->first();
+        $seriesModel = Serie::with('temporadas.episodes')->find($series);
 
-        return $serie;
+        if($seriesModel === null){
+            return response()->json(['message' => "Series not found"], 404);
+        }
+        return $seriesModel;
     }
 
-    public function update(Serie $serie, SeriesFormRequest $request)
+    public function update(Serie $series, SeriesFormRequest $request)
     {
-        $serie->fill($request->all());
-        $serie->save();
+        $series->fill($request->all());
+        $series->save();
 
-        return $serie;
+        return $series;
 
     }
 
-    public function destroy(Serie $series)
+    public function destroy(int $series, Request $request)
     {
+        Serie::destroy($series);
 
+        return response()->noContent();
     }
 }
